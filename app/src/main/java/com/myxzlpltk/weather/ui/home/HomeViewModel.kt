@@ -56,21 +56,18 @@ class HomeViewModel @Inject constructor(
     }
 
     val uiState: StateFlow<HomeUiState> = weatherFlow.map { weather ->
-        if (weather == null) {
-            HomeUiState.Loading
-        } else {
-            HomeUiState.Success(weather)
-        }
+        HomeUiState(
+            loading = weather == null,
+            weather = weather
+        )
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(),
-        initialValue = HomeUiState.Loading
+        initialValue = HomeUiState()
     )
 }
 
-sealed interface HomeUiState {
-    object Loading : HomeUiState
-    data class Success(
-        val weather: Weather
-    ) : HomeUiState
-}
+data class HomeUiState(
+    val loading: Boolean = true,
+    val weather: Weather? = null,
+)

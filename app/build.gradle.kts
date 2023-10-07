@@ -58,6 +58,7 @@ dependencies {
     // Default Compose App
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.lifecycle.runtime.compose)
     implementation(libs.activity.compose)
     implementation(platform(libs.compose.bom))
     implementation(libs.ui)
@@ -71,6 +72,7 @@ dependencies {
 
     // Accompanist
     implementation(libs.accompanist.permissions)
+    implementation(libs.accompanist.systemuicontroller)
 
     // Database Room
     implementation(libs.androidx.room.ktx)

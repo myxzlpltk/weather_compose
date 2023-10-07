@@ -46,10 +46,12 @@ fun WeatherSection(
                 Text(
                     text = weather.cityName.uppercase(),
                     style = MaterialTheme.typography.titleLarge,
+                    color = Color.White,
                 )
                 Text(
                     text = stringResource(R.string.temperature_template, weather.temperature),
                     style = MaterialTheme.typography.displayLarge,
+                    color = Color.White,
                     fontSize = 100.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -58,6 +60,7 @@ fun WeatherSection(
             Text(
                 modifier = Modifier.rotateVertically(-90f),
                 text = stringResource(weather.weatherStatus.description),
+                color = Color.White,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold
             )
@@ -68,7 +71,7 @@ fun WeatherSection(
                 .height(IntrinsicSize.Min)
                 .fillMaxWidth()
                 .border(
-                    border = BorderStroke(2.dp, Color.Red),
+                    border = BorderStroke(1.dp, Color.White.copy(alpha = 0.75f)),
                     shape = RoundedCornerShape(percent = 15)
                 )
                 .padding(vertical = 16.dp)

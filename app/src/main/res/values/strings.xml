@@ -23,4 +23,5 @@
     <string name="wind_speed_template">%1$.1f km/h</string>
     <string name="humidity_template">%1$d%%</string>
     <string name="temperature_template">%1$.1f°</string>
+    <string name="background_weather">Background weather</string>
 </resources>

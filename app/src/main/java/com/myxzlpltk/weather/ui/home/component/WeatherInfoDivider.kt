@@ -1,5 +1,6 @@
 package com.myxzlpltk.weather.ui.home.component
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -12,8 +13,8 @@ fun WeatherInfoDivider(
     modifier: Modifier = Modifier
 ) {
     VerticalDivider(
-        modifier = modifier,
-        color = Color.Red,
+        modifier = modifier.padding(vertical = 6.dp),
+        color = Color.White.copy(alpha = 0.75f),
         thickness = 1.dp
     )
 }
