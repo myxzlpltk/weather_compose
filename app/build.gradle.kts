@@ -64,6 +64,9 @@ dependencies {
     // Navigation
     implementation(libs.androidx.navigation.compose)
 
+    // Accompanist
+    implementation(libs.accompanist.permissions)
+
     // Unit Testing
     testImplementation(libs.junit)
 

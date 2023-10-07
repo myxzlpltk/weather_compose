@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Weather</string>
+    <string name="location_request_message">Get the most accurate weather updates with our app! To provide you with real-time weather information, we kindly ask for your permission to access your location. Grant us location access to experience the full potential of our weather app!</string>
+    <string name="request_permission">Request Permission</string>
 </resources>
