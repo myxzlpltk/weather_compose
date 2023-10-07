@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.work.WorkInfo
 import com.myxzlpltk.weather.R
 import com.myxzlpltk.weather.domain.model.Weather
 import com.myxzlpltk.weather.extension.dummyWeather
@@ -29,6 +30,7 @@ import com.myxzlpltk.weather.extension.rotateVertically
 fun WeatherSection(
     modifier: Modifier = Modifier,
     weather: Weather,
+    taskProgress: WorkInfo.State,
 ) {
     Column(
         modifier = modifier
@@ -104,6 +106,7 @@ fun WeatherSection(
 @Composable
 private fun PreviewWeatherSection() {
     WeatherSection(
-        weather = dummyWeather()
+        weather = dummyWeather(),
+        taskProgress = WorkInfo.State.ENQUEUED
     )
 }

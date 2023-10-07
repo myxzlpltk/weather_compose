@@ -8,4 +8,6 @@ interface WeatherRepository {
     suspend fun fetchForecast(latitude: Double, longitude: Double, cityName: String): List<Weather>
 
     fun getCurrentWeather(date: LocalDateTime): Flow<Weather?>
+
+    abstract suspend fun getCurrentWeatherNow(date: LocalDateTime): Weather?
 }

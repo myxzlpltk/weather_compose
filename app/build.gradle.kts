@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
+    implementation(libs.androidx.compose.livedata)
 
     // Navigation
     implementation(libs.androidx.navigation.compose)
@@ -95,6 +96,10 @@ dependencies {
 
     // Location
     implementation(libs.play.services.location)
+
+    // Jetpack Glance
+    implementation(libs.androidx.glance)
+    implementation(libs.androidx.glance.appwidget)
 
     // Unit Testing
     testImplementation(libs.junit)

@@ -24,4 +24,5 @@
     <string name="humidity_template">%1$d%%</string>
     <string name="temperature_template">%1$.1f°</string>
     <string name="background_weather">Background weather</string>
+    <string name="glance_label">Display current weather</string>
 </resources>

@@ -10,6 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.BlendMode
@@ -21,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.work.WorkInfo
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.myxzlpltk.weather.R
 import com.myxzlpltk.weather.ui.home.component.WeatherSection
@@ -30,6 +32,7 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
+    val taskProgress by viewModel.taskProgress.observeAsState(WorkInfo.State.ENQUEUED)
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val weather = uiState.weather
 
@@ -60,7 +63,8 @@ fun HomeScreen(
 
             WeatherSection(
                 modifier = Modifier.systemBarsPadding(),
-                weather = weather
+                weather = weather,
+                taskProgress = taskProgress
             )
         } else {
             val background = MaterialTheme.colorScheme.background

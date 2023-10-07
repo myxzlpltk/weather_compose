@@ -63,4 +63,17 @@ class WeatherRepositoryImpl @Inject constructor(
 
         return localWeatherFlow.map { it?.toDomain() }
     }
+
+    override suspend fun getCurrentWeatherNow(date: LocalDateTime): Weather? {
+        val lowerDate = date.truncatedTo(ChronoUnit.HOURS)
+        val upperDate = date.truncatedTo(ChronoUnit.HOURS).plusHours(1)
+
+        val localWeather = if (date.minute < 30) {
+            weatherDao.getCurrentWeatherNow(lowerDate, upperDate)
+        } else {
+            weatherDao.getCurrentWeatherNow(upperDate, lowerDate)
+        }
+
+        return localWeather?.toDomain()
+    }
 }

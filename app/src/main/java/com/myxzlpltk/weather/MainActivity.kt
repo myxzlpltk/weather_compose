@@ -14,9 +14,9 @@ import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
-import com.example.compose.WeatherTheme
+import com.myxzlpltk.weather.ui.theme.WeatherTheme
 import com.myxzlpltk.weather.util.toEpochMilli
-import com.myxzlpltk.weather.worker.FetchDataWorker
+import com.myxzlpltk.weather.util.worker.FetchDataWorker
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.Duration
 import java.time.LocalDateTime
@@ -68,7 +68,7 @@ class MainActivity : ComponentActivity() {
 
         workManager.enqueueUniquePeriodicWork(
             "PeriodicFetchDataWorker",
-            ExistingPeriodicWorkPolicy.CANCEL_AND_REENQUEUE,
+            ExistingPeriodicWorkPolicy.KEEP,
             periodicWorkRequest
         )
     }

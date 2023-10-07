@@ -1,18 +1,21 @@
-package com.myxzlpltk.weather.worker
+package com.myxzlpltk.weather.util.worker
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Geocoder
 import android.location.Location
 import android.os.Build
+import androidx.glance.appwidget.updateAll
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
+import androidx.work.Data
 import androidx.work.WorkerParameters
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority.PRIORITY_BALANCED_POWER_ACCURACY
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.myxzlpltk.weather.domain.repository.WeatherRepository
 import com.myxzlpltk.weather.extension.locationPermission
+import com.myxzlpltk.weather.util.glance.WeatherWidget
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
@@ -43,15 +46,35 @@ class FetchDataWorker @AssistedInject constructor(
                     Result.failure()
                 }
             } else {
+                // Get location
                 val cityName = getCityName(location)
 
-                weatherRepository.fetchForecast(location.latitude, location.longitude, cityName)
+                // Update repository
+                val weathers = weatherRepository.fetchForecast(
+                    location.latitude,
+                    location.longitude,
+                    cityName
+                )
+
+                // Update glance
+                updateGlance()
 
                 Timber.tag(TAG).d("doWork success $location")
-                Result.success()
+
+                val outputData = Data.Builder()
+                    .putString("cityName", cityName)
+                    .putString("location", "${location.latitude}, ${location.longitude}")
+                    .putString("totalWeathers", weathers.size.toString())
+                    .build()
+
+                Result.success(outputData)
             }
         } catch (e: Exception) {
-            Result.failure()
+            val outputData = Data.Builder()
+                .putString("message", e.message)
+                .build()
+
+            Result.failure(outputData)
         }
     }
 
@@ -98,6 +121,10 @@ class FetchDataWorker @AssistedInject constructor(
                 continuation.resumeWithException(Exception("Empty Address"))
             }
         }
+    }
+
+    private suspend fun updateGlance() {
+        WeatherWidget().updateAll(appContext)
     }
 
     companion object {

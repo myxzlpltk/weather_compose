@@ -6,6 +6,7 @@ import com.myxzlpltk.weather.util.countDownFlow
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 class GetCurrentWeatherUseCase @Inject constructor(
@@ -14,5 +15,11 @@ class GetCurrentWeatherUseCase @Inject constructor(
     @OptIn(ExperimentalCoroutinesApi::class)
     fun getCurrentWeather(): Flow<Weather?> {
         return countDownFlow(60_000).flatMapLatest(weatherRepository::getCurrentWeather)
+    }
+
+    suspend fun getCurrentWeatherNow(): Weather? {
+        val date = LocalDateTime.now()
+
+        return weatherRepository.getCurrentWeatherNow(date)
     }
 }

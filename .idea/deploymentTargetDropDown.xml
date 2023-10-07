@@ -5,6 +5,22 @@
       <entry key="app">
         <State />
       </entry>
+      <entry key="glance">
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="D:\sdk\.android\avd\Pixel_4_API_UpsideDownCake.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2023-07-17T12:18:23.512956700Z" />
+        </State>
+      </entry>
     </value>
   </component>
 </project>
