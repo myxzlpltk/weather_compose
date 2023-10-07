@@ -11,9 +11,12 @@ import java.time.LocalDateTime
 @Dao
 interface WeatherDao {
 
-    @Query("SELECT * FROM weathers WHERE id = :date")
-    fun getCurrentWeather(date: LocalDateTime): Flow<LocalWeather>
+    @Query("SELECT * FROM weathers WHERE id = :date1 OR id = :date2")
+    fun getCurrentWeather(date1: LocalDateTime, date2: LocalDateTime): Flow<LocalWeather?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(vararg weathers: LocalWeather)
+    suspend fun insertAll(weathers: List<LocalWeather>)
+
+    @Query("DELETE FROM weathers")
+    suspend fun deleteAll()
 }

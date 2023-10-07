@@ -10,5 +10,6 @@ interface WeatherService {
     suspend fun getForecast(
         @Query("latitude") latitude: Double,
         @Query("longitude") longitude: Double,
+        @Query("timezone") timeZone: String,
     ): ForecastResponse
 }

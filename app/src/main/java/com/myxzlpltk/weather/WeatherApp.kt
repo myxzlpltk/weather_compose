@@ -1,6 +1,7 @@
 package com.myxzlpltk.weather
 
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
+import android.Manifest.permission.ACCESS_FINE_LOCATION
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -20,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
-import com.google.accompanist.permissions.rememberPermissionState
+import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.myxzlpltk.weather.ui.AppRouter
 
 @OptIn(ExperimentalPermissionsApi::class)
@@ -28,18 +29,19 @@ import com.myxzlpltk.weather.ui.AppRouter
 fun WeatherApp(
     modifier: Modifier = Modifier
 ) {
-    val locationPermissionState = rememberPermissionState(ACCESS_COARSE_LOCATION)
+    val locationPermissions = listOf(ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION)
+    val locationPermissionState = rememberMultiplePermissionsState(locationPermissions)
 
     Scaffold(
         modifier = modifier
     ) { contentPadding ->
-        if (locationPermissionState.status.isGranted) {
+        if (locationPermissionState.permissions.any { it.status.isGranted }) {
             AppRouter(
                 modifier = Modifier.padding(contentPadding)
             )
         } else {
             LaunchedEffect(Unit) {
-                locationPermissionState.launchPermissionRequest()
+                locationPermissionState.launchMultiplePermissionRequest()
             }
 
             Column(
@@ -55,7 +57,7 @@ fun WeatherApp(
                     textAlign = TextAlign.Center
                 )
                 Spacer(modifier = Modifier.height(24.dp))
-                Button(onClick = { locationPermissionState.launchPermissionRequest() }) {
+                Button(onClick = { locationPermissionState.launchMultiplePermissionRequest() }) {
                     Text(text = stringResource(R.string.request_permission))
                 }
             }

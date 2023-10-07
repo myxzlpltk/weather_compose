@@ -12,4 +12,5 @@ data class LocalWeather(
     val humidity: Int,
     val precipitationProbability: Int,
     val windSpeed: Double,
+    val cityName: String,
 )

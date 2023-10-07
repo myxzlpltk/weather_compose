@@ -1,6 +1,7 @@
 package com.myxzlpltk.weather.di
 
 import com.myxzlpltk.weather.BuildConfig
+import com.myxzlpltk.weather.data.service.WeatherService
 import com.myxzlpltk.weather.util.API_BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -10,7 +11,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -28,8 +28,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    @Named("AuthRetrofit")
-    fun provideAuthRetrofit(loggingInterceptor: HttpLoggingInterceptor): Retrofit {
+    fun provideRetrofit(loggingInterceptor: HttpLoggingInterceptor): Retrofit {
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .build()
@@ -39,5 +38,11 @@ object NetworkModule {
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideProfileService(retrofit: Retrofit): WeatherService {
+        return retrofit.create(WeatherService::class.java)
     }
 }

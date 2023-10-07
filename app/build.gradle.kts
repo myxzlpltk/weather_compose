@@ -67,6 +67,7 @@ dependencies {
 
     // Navigation
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     // Accompanist
     implementation(libs.accompanist.permissions)
@@ -84,6 +85,14 @@ dependencies {
     // Hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+
+    // WorkManager
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.androidx.hilt.work)
+    kapt(libs.androidx.hilt.compiler)
+
+    // Location
+    implementation(libs.play.services.location)
 
     // Unit Testing
     testImplementation(libs.junit)
